@@ -23,8 +23,8 @@ import { User } from "./User";
     @Column()
     id_user: number;
 
-    @ManyToOne(() => User, (user) => user.uid)
-    @JoinColumn({ name: "id_autor", referencedColumnName: "id" })
+    @ManyToOne(() => User, (users) => users.uid)
+    @JoinColumn({ name: "id_autor", referencedColumnName: "uid" })
      autor?: UserRoutes;
 
     constructor(descricao: string, detalhamento: string, id_user: number, uid?:number) {
