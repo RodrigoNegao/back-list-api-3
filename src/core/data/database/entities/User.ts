@@ -14,12 +14,12 @@ import {
     user: string;
   
     @Column()
-    senha: string;
+    password: string;
 
-    constructor(user: string, senha: string,uid?:number) {
+    constructor(user: string, password: string,uid?:number) {
         super();
         this.user = user;
-        this.senha = senha;
+        this.password = password;
         this.uid = uid;
     }
   }

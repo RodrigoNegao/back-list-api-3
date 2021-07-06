@@ -8,7 +8,7 @@ export default class UserRoutes {
         const routes = Router();
 
         const userController = new UserController;
-        routes.get('/login', userController.login); //TODO'/categorias', colocar Middleware
+        routes.post('/login', userController.login); //TODO'/categorias', colocar Middleware
         routes.post('/signin', userController.store);
         //routes.put('/user/:id', userController.update);
         //routes.delete('/user/:id', userController.delete);

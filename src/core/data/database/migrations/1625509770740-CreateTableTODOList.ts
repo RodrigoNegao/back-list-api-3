@@ -13,13 +13,13 @@ export class CreateTableTODOList1625509770740 implements MigrationInterface {
                     isNullable:false
                 },
                 {
-                    name:'descricao',
+                    name:'title',
                     type:'varchar',
                     length:'50',
                     isNullable:false
                 },
                 {
-                    name:'detalhamento',
+                    name:'detail',
                     type:'varchar',
                     length:'200'
                 },

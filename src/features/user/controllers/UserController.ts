@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { userInfo } from "os";
 import { User } from "../../../core/data/database/entities/User";
 
 //import { v4 } from "uuid";
@@ -7,10 +6,10 @@ import { User } from "../../../core/data/database/entities/User";
 export default class UserController {
   public async store(req: Request, res: Response) {
     //addCategory
-    const { user, senha } = req.body;
+    const { user, password } = req.body;
 
     try {
-      const entity = await new User(user, senha).save();
+      const entity = await new User(user, password).save();
       return res.status(200).json(entity);
     } catch (error) {
       return res.status(500).json(error);
@@ -25,23 +24,25 @@ export default class UserController {
   // }
 
   public async login(req: Request, res: Response) {
-    const { user, senha } = req.body;
-    const categories = await User.findOne({user:user, senha:senha});
-
-    return res.json(categories);
+    const { user, password } = req.body;
+    const exist = await User.findOne({user:user, password:password});
+    if (!exist) {
+      return res.status(404).json({msg:"Nenhum User encontrada"});
+    }
+    return res.json(exist);
   }
 
   public async show(req: Request, res: Response) {
     //showCategory
-    const { uid } = req.params;
+    const { user } = req.body;
 
-    const todolist = await User.findOne(uid);
+    const exist = await User.findOne(user);
 
-    if (!todolist) {
-      return res.status(404).send("Nenhuma Categoria encontrada");
+    if (!exist) {
+      return res.status(404).send("Nenhum User encontrada");
     }
 
-    return res.status(200).json(todolist);
+    return res.status(200).json(exist);
   }
 
   public async delete(req: Request, res: Response) {
@@ -66,7 +67,7 @@ export default class UserController {
 
   public async update(req: Request, res: Response) {
     const { id } = req.params;
-    const { user, senha } = req.body;
+    const { user, password } = req.body;
 
     const autor = await User.findOne(id);
     if (!user) {
@@ -77,7 +78,7 @@ export default class UserController {
 
     const result = await User.update(id, {
       user,
-      senha,
+      password,
     });
 
     return res.json(result);

@@ -11,26 +11,26 @@ import { User } from "./User";
   
   @Entity({ name: "todo_list", schema:"lista1" })
   export class TodoList extends BaseEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn({ name: "id" })
     uid?: number;
   
-    @Column({ name: "descricao" })
-    descricao: string;
+    @Column({ name: "title" })
+    title: string;
   
     @Column()
-    detalhamento: string;
+    detail: string;
 
     @Column()
     id_user: number;
 
     @ManyToOne(() => User, (users) => users.uid)
-    @JoinColumn({ name: "id_autor", referencedColumnName: "uid" })
+    @JoinColumn({ name: "id_user", referencedColumnName: "uid" })
      autor?: UserRoutes;
 
-    constructor(descricao: string, detalhamento: string, id_user: number, uid?:number) {
+    constructor(title: string, detail: string, id_user: number, uid?:number) {
         super();
-        this.descricao = descricao;
-        this.detalhamento = detalhamento;
+        this.title = title;
+        this.detail = detail;
         this.uid = uid;
         this.id_user = id_user;
     }
