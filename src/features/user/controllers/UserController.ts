@@ -25,10 +25,9 @@ export default class UserController {
 
   public async login(req: Request, res: Response) {
     const { user, password } = req.body;
+    
     const exist = await User.findOne({user:user, password:password});
-    if (!exist) {
-      return res.status(404).json({msg:"Nenhum User encontrada"});
-    }
+    
     return res.json(exist);
   }
 

@@ -8,17 +8,15 @@ async function validateUser(
 ) {
   const { user } = req.body;
 
-  //console.log("valid Name Middleware ");
-
   if (!user) {
     return res.status(400).json({
-      msg: "O nome deve ser informado",
+      msg: "O User deve ser informado.",
     });
   }
 
   if (user.length < 3) {
     return res.status(400).json({
-      msg: "O nome deve conter no minimo 3 caracteres",
+      msg: "O nome deve conter no minimo 3 caracteres.",
     });
   }
 
@@ -32,10 +30,10 @@ async function validateExistUser(
 ) {
   const { user } = req.body;
 
-  const exist = await User.findOne({user:user});
+  const exist = await User.findOne({ user: user });
   if (exist) {
-      return res.status(404).json({msg:"Email já existe"});
-    }
+    return res.status(404).json({ msg: "User já existe" });
+  }
   next();
 }
 
@@ -46,30 +44,11 @@ async function validateNotExistUser(
 ) {
   const { user } = req.body;
 
-  const exist = await User.findOne({user:user});
+  const exist = await User.findOne({ user: user });
   if (!exist) {
-      return res.status(404).json({msg:"Nenhum User encontrada"});
-    }
-  next();
-}
-
-
-function validarPassword(
-  request: express.Request,
-  response: express.Response,
-  next: express.NextFunction
-) {
-  const { password } = request.body;
-
-  //console.log("valid Name Middleware");
-
-  if (!password) {
-    return response.status(400).json({
-      msg: "Password dever ser informado corretamente",
-    });
+    return res.status(404).json({ msg: "Nenhum User encontrada" });
   }
-
   next();
 }
 
-export {  validateUser, validateExistUser, validateNotExistUser, validarPassword };
+export { validateUser, validateExistUser, validateNotExistUser };
