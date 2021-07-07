@@ -28,7 +28,7 @@ export default class UserController {
     
     const exist = await User.findOne({user:user, password:password});
 
-    return res.json(exist?.uid);
+    return res.json({id:exist?.uid});
   }
 
   public async show(req: Request, res: Response) {
