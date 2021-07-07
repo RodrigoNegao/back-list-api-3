@@ -6,11 +6,11 @@ import { TodoList } from "../../../core/data/database/entities/TodoList";
 
 export default class TodoListController {
   public async store(req: Request, res: Response) {
-    //add id_user// 
-    const { title,detail,id_user } = req.body;
+    //add id_user//
+    const { title, detail, id_user } = req.body;
 
     try {
-      const entity = await new TodoList( title,detail, id_user).save();
+      const entity = await new TodoList(title, detail, id_user).save();
 
       return res.status(200).json(entity);
     } catch (error) {
@@ -28,9 +28,9 @@ export default class TodoListController {
   public async show(req: Request, res: Response) {
     //showCategory
     //const { uid, id_user }=  req.params;
-    const { id_user } = req.body;  
+    const { id_user } = req.body;
     //const id_user: number = parseInt(id_user_params)
-    const todolist = await TodoList.find({where:{id_user:id_user}})
+    const todolist = await TodoList.find({ where: { id_user: id_user } });
     // const todolist = await TodoList.findOne({
     //   where: { uid, id_user },
     //   relations: ["user"],
@@ -47,25 +47,29 @@ export default class TodoListController {
 
   public async delete(req: Request, res: Response) {
     //showCategory
-    const { uid } = req.params;
+    const { id_user, uid } = req.params;
 
-    const todolist = await TodoList.findOne(uid);
+    const todolist = await TodoList.findOne({
+      where: { uid: uid, id_user: id_user },
+    });
 
     if (!todolist) {
-      return res.status(404).send("Nenhuma Categoria encontrada");
+      return res.status(404).json({ msg: "Nenhuma Mensagem encontrada" });
     }
 
     // category.remove() ou
     const result = await TodoList.delete(uid);
 
-    return res.status(200).json((result.affected as number) > 0
-      ? "Excluiu Categoria"
-      : "Não Excluiu");
+    return res
+      .status(200)
+      .json(
+        (result.affected as number) > 0 ? "Excluiu Messagem" : "Não Excluiu"
+      );
   }
 
   public async update(req: Request, res: Response) {
-    const { uid } = req.params
-    const { title,detail  } = req.body;
+    const { uid } = req.params;
+    const { title, detail } = req.body;
 
     const exist = await TodoList.findOne(uid);
     if (!exist) {
@@ -75,9 +79,14 @@ export default class TodoListController {
     }
 
     const result = await TodoList.update(uid, {
-      title,detail
+      title,
+      detail,
     });
 
-    return res.json(result);
+    return res
+      .status(200)
+      .json(
+        (result.affected as number) > 0 ? "Atualizou Messagem" : "Não Atualizou"
+      );
   }
 }
