@@ -1,12 +1,13 @@
+import cors from "cors";
 import express, { Request, Response } from "express";
 import "reflect-metadata";
 import Database from "./core/data/connections/Database";
 import TodoListRoutes from "./features/todolist/routes/TodoListRoutes";
 import UserRoutes from "./features/user/routes/UserRoutes";
 
-
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
