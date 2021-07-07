@@ -70,14 +70,7 @@ export default class TodoListController {
   public async update(req: Request, res: Response) {
     const { uid } = req.params;
     const { title, detail } = req.body;
-
-    const exist = await TodoList.findOne(uid);
-    if (!exist) {
-      return res.status(404).json({
-        msg: "descricao não encontrado",
-      });
-    }
-
+    
     const result = await TodoList.update(uid, {
       title,
       detail,

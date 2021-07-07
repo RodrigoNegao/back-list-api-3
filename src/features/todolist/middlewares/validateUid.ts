@@ -2,13 +2,11 @@ import express from "express";
 import { TodoList } from "../../../core/data/database/entities/TodoList";
 import { User } from "../../../core/data/database/entities/User";
 
-async function validatePassword(
+async function validateUid(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
-  const { password } = req.body;
-
   //console.log("valid Name Middleware");
   const { uid } = req.params;
 
@@ -22,4 +20,4 @@ async function validatePassword(
   next();
 }
 
-export { validatePassword };
+export { validateUid };
