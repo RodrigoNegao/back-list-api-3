@@ -46,7 +46,7 @@ async function validateNotExistUser(
 
   const exist = await User.findOne({ user: user });
   if (!exist) {
-    return res.status(404).json({ msg: "Nenhum User encontrada" });
+    return res.status(404).json({ msg: "Nenhum User encontrado" });
   }
   next();
 }

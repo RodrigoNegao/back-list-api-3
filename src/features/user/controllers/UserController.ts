@@ -27,25 +27,19 @@ export default class UserController {
     const { user, password } = req.body;
     
     const exist = await User.findOne({user:user, password:password});
-    
-    return res.json(exist);
+
+    return res.json(exist?.uid);
   }
 
   public async show(req: Request, res: Response) {
-    //showCategory
     const { user } = req.body;
 
     const exist = await User.findOne(user);
-
-    if (!exist) {
-      return res.status(404).send("Nenhum User encontrada");
-    }
 
     return res.status(200).json(exist);
   }
 
   public async delete(req: Request, res: Response) {
-    //showCategory
     const { uid } = req.params;
 
     const todolist = await User.findOne(uid);
@@ -67,13 +61,6 @@ export default class UserController {
   public async update(req: Request, res: Response) {
     const { id } = req.params;
     const { user, password } = req.body;
-
-    const autor = await User.findOne(id);
-    if (!user) {
-      return res.status(404).json({
-        msg: "user não encontrado",
-      });
-    }
 
     const result = await User.update(id, {
       user,

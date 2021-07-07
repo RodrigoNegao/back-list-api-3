@@ -12,6 +12,7 @@ export default class UserRoutes {
         const userController = new UserController;
         routes.post('/login',[validateNotExistUser,validateExistPassword, validatePassword], userController.login); //TODO'/categorias', colocar Middleware
         routes.post('/signin',[validateUser,validateExistPassword,validateExistUser], userController.store);
+        // TODO colocar Middleware
         //routes.put('/user/:id', userController.update);
         //routes.delete('/user/:id', userController.delete);
 
