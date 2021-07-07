@@ -10,7 +10,7 @@ export default class TodoListRoutes {
         const routes = Router();
 
         const todoListController = new TodoListController
-        routes.get('/messages', todoListController.show);
+        routes.get('/messages/:id_user', todoListController.show);
         routes.post('/message', todoListController.store);
         routes.put('/message/:id_user/:uid',[validateUid], todoListController.update);
         routes.delete('/message/:id_user/:uid',[validateUid], todoListController.delete);

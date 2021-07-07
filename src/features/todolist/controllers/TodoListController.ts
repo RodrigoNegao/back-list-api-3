@@ -28,7 +28,7 @@ export default class TodoListController {
   public async show(req: Request, res: Response) {
     //showCategory
     //const { uid, id_user }=  req.params;
-    const { id_user } = req.body;
+    const { id_user } = req.params;
     //const id_user: number = parseInt(id_user_params)
     const todolist = await TodoList.find({ where: { id_user: id_user } });
     // const todolist = await TodoList.findOne({
