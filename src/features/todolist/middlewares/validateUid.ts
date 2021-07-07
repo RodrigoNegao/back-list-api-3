@@ -11,12 +11,11 @@ async function validatePassword(
 
   //console.log("valid Name Middleware");
   const { uid } = req.params;
-    const { title, detail } = req.body;
 
     const exist = await TodoList.findOne(uid);
     if (!exist) {
       return res.status(404).json({
-        msg: "descricao não encontrado",
+        msg: "Item não encontrado",
       });
     }
 
